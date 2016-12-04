@@ -9,6 +9,39 @@
 
     <div class="row">
         <div class="col-lg-12">
+            <table class="table">
+                <thead>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>URL</th>
+                </thead>
+                
+                <tbody>
+                {% if Repos|length %}
+                    {% for repo in Repos %}
+                    <tr>
+                        <td>
+                            {{repo.id}}
+                        </td>
+                        <td>
+                            {{repo.name}}
+                        </td>
+                        <td>
+                            {{repo}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            <p class="text-muted">
+                                暂无数据
+                            </p>
+                        </td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
         </div>
     </div>
 {%endblock%}

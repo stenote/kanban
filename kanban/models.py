@@ -10,4 +10,4 @@ class Repo(db.Model):
         self.name = name
 
     def __repr__(self):
-        return '<User %r>' % self.name
+        return '<Repo %r>' % self.name

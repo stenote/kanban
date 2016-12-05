@@ -17,7 +17,6 @@ from kanban.extensions import (
     debug_toolbar
 )
 
-
 def create_app(object_name):
     """
     An flask application factory, as explained here:

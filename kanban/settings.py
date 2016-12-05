@@ -4,6 +4,9 @@ db_file = tempfile.NamedTemporaryFile()
 
 class Config(object):
     SECRET_KEY = 'secret key'
+    DOMAIN = '6rz.in'
+    GIT_ROOT = '/tmp/git'
+    WEB_ROOT = '/tmp/web'
 
 
 class ProdConfig(Config):

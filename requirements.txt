@@ -1,13 +1,14 @@
-Flask==0.10.1
+Flask
 
 # Flask Extensions
-Flask-Assets==0.10
-Flask-DebugToolbar==0.10.0
-Flask-SQLAlchemy==2.0
-Flask-Script==2.0.5
-Flask-WTF==0.11
+Flask-Assets
+Flask-DebugToolbar
+Flask-SQLAlchemy
+Flask-Script
+Flask-WTF
 
 # Other
-itsdangerous==0.24
-cssmin==0.2.0
-jsmin==2.1.1
+itsdangerous
+cssmin
+jsmin
+gitpython

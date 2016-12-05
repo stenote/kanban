@@ -3,45 +3,94 @@
 {%block title%}Home{% endblock %}
 
 {%block body%}
-    <div class="jumbotron">
-        <h1>Kanban </h1>
-    </div>
+<div class="jumbotron">
+    <h1>Kanban </h1>
+</div>
 
-    <div class="row">
-        <div class="col-lg-12">
-            <table class="table">
-                <thead>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>URL</th>
-                </thead>
-                
-                <tbody>
-                {% if Repos|length %}
-                    {% for repo in Repos %}
-                    <tr>
-                        <td>
-                            {{repo.id}}
-                        </td>
-                        <td>
-                            {{repo.name}}
-                        </td>
-                        <td>
-                            {{repo}}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                {% else %}
-                    <tr>
-                        <td colspan="3" class="text-center">
-                            <p class="text-muted">
-                                暂无数据
-                            </p>
-                        </td>
-                    </tr>
-                {% endif %}
-                </tbody>
-            </table>
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary pull-right" id="add">添加</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th>URL</th>
+                <th>Git Repo</th>
+            </thead>
+
+            <tbody>
+            {% if Repos|length %}
+                {% for repo in Repos %}
+                <tr>
+                    <td>
+                        {{repo.id}}
+                    </td>
+                    <td>
+                        {{repo.name}}
+                    </td>
+                    <td>
+                        <a href="{{ repo.http_url() }}" target="_blank">{{ repo.http_url() }}</a>
+                    </td>
+                    <td>
+                        <span>{{ repo.repo_url() }}</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">
+                        <p class="text-muted">
+                            暂无数据
+                        </p>
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="add-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">添加展示项目</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" id="add-form" method="post" action="/add">
+                        <div class="form-group">
+                            <label for="name" class="col-md-2 control-label">名称</label>
+                            <div class="col-md-10">
+                                <input type="text" name="name" class="form-control" id="name" placeholder="请填写英文名称">                                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary" form="add-form">添加</button>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 {%endblock%}
+
+{%block js%}
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $('#add').bind('click', function() {
+            $('#add-modal').modal();
+        });
+    });
+</script>
+
+{% endblock %}

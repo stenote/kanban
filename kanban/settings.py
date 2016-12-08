@@ -4,7 +4,7 @@ db_file = tempfile.NamedTemporaryFile()
 
 class Config(object):
     SECRET_KEY = 'secret key'
-    DOMAIN = '6rz.in'
+
     GIT_ROOT = '/tmp/git'
     WEB_ROOT = '/tmp/web'
 
@@ -22,6 +22,8 @@ class DevConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///../database.db'
 
     ASSETS_DEBUG = True
+
+    DOMAIN = '6rz.in'
 
 
 class TestConfig(Config):

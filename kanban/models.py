@@ -2,6 +2,8 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask import current_app
 from git import Repo as R
 
+import os
+
 db = SQLAlchemy()
 
 class Repo(db.Model):
@@ -10,9 +12,6 @@ class Repo(db.Model):
 
     def __init__(self, name):
         self.name = name
-
-    def __repr__(self):
-        return '<Repo %r>' % self.name
 
     def http_url(self):
         return 'http://%s.%s' % (self.name, current_app.config['DOMAIN'])
@@ -32,4 +31,25 @@ class Repo(db.Model):
 
         # clone
         r = R(self._git_path())
+
+        # set web_path
+        with r.config_writer() as writer:
+            writer.set_value('kanban', 'web', self._web_path())
+
+        post_trigger_file = os.path.join(self._git_path(), 'hooks', 'post-update')
+
+        with open(post_trigger_file, 'w') as f:
+            f.writelines(r'''#!/bin/bash
+
+web="$(git config kanban.web)"
+branch="$(git branch)"
+
+unset GIT_DIR
+
+[[ ! -z "$branch" ]] && cd "$web" && git pull
+exit 0
+''')
+
+        os.chmod(post_trigger_file, 0o755)
+
         r.clone(self._web_path())
